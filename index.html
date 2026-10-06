@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pregunta al tutor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#EDF1E8;
+  --card:#F8FAF4;
+  --grid:#DCE4D5;
+  --grid-strong:#C6D2BD;
+  --ink:#1C2433;
+  --muted:#5A6458;
+  --trace:#CF2338;
+  --veto:#D9940F;
+  --ok:#2E7A4D;
+  --edge:#B9C6B0;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible",ui-sans-serif,system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#111714;--card:#18201B;--grid:#1C2520;--grid-strong:#26312A;
+    --ink:#E3E9DE;--muted:#9CA89B;--trace:#FF5568;--veto:#F2B240;--ok:#5FBF85;--edge:#2E3A32;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#111714;--card:#18201B;--grid:#1C2520;--grid-strong:#26312A;
+  --ink:#E3E9DE;--muted:#9CA89B;--trace:#FF5568;--veto:#F2B240;--ok:#5FBF85;--edge:#2E3A32;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background-color:var(--paper);
+  background-image:
+    linear-gradient(var(--grid-strong) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid-strong) 1px,transparent 1px),
+    linear-gradient(var(--grid) 1px,transparent 1px),
+    linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:100px 100px,100px 100px,20px 20px,20px 20px;
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:18px;
+  line-height:1.55;
+}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:20px;padding-block:40px 80px;display:flex;flex-direction:column;gap:88px}
+section{display:flex;flex-direction:column;gap:24px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.02}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.section-head{display:flex;flex-direction:column;gap:10px;max-width:62ch}
+h2{font-size:clamp(32px,4.4vw,48px);font-weight:800;letter-spacing:-.01em}
+
+/* HERO */
+.hero{display:flex;flex-direction:column;gap:28px}
+.hero h1{font-size:clamp(56px,11vw,132px);font-weight:800;letter-spacing:-.035em}
+.hero h1 .claim{display:block;color:var(--trace)}
+.lede{font-size:clamp(19px,2.2vw,23px);max-width:44ch}
+
+/* POLYGRAPH */
+.poly{border:1.5px solid var(--ink);background:var(--card);display:grid;grid-template-columns:auto 1fr}
+.poly-labels{display:grid;grid-template-rows:repeat(3,1fr);border-right:1.5px solid var(--ink);font-family:var(--mono);font-size:12px}
+.poly-labels div{padding:8px 12px;display:flex;flex-direction:column;justify-content:center;gap:2px;border-bottom:1px dashed var(--edge);min-width:118px}
+.poly-labels div:last-child{border-bottom:0}
+.poly-labels span{color:var(--muted);letter-spacing:.08em}
+.poly-labels output{font-size:15px;font-variant-numeric:tabular-nums;color:var(--ink)}
+.poly canvas{width:100%;height:180px;display:block}
+
+/* RULES */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));border-top:1.5px solid var(--ink)}
+.rule{padding:22px 22px 26px 0;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid var(--edge)}
+.rule + .rule{padding-left:22px;border-left:1px solid var(--edge)}
+.rule h3{font-size:26px;font-weight:700}
+.rule .tag{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.rule.r-truth .tag{color:var(--trace)}
+.rule.r-veto .tag{color:var(--veto)}
+@media (max-width:540px){.rule + .rule{padding-left:0;border-left:0}}
+
+/* EXAMPLES */
+.examples{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+@media (max-width:760px){.examples{grid-template-columns:1fr}}
+.ex-col{display:flex;flex-direction:column;gap:12px}
+.ex-col header{display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:3px solid currentColor}
+.ex-col header h3{font-size:22px;font-weight:700;color:var(--ink)}
+.ex-col.warm header{color:var(--ok)}
+.ex-col.hot header{color:var(--trace)}
+.dot{width:12px;height:12px;border-radius:50%;background:currentColor;flex:none}
+.ex-col .note{font-size:15px;color:var(--muted)}
+.ex-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.ex-list li{background:var(--card);border:1px solid var(--edge);padding:10px 14px;font-size:17px}
+
+footer{font-family:var(--mono);font-size:13px;color:var(--muted);border-top:1px solid var(--edge);padding-top:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <span class="eyebrow">Tutoria · 3r ESO · 3C</span>
+    <h1>Pregunta al tutor.<span class="claim">No pot mentir.</span></h1>
+    <p class="lede">Escriviu en un paper, sense nom, el que sempre heu volgut preguntar a un profe. El tutor ho respondrà davant de tota la classe i ha de dir la veritat.</p>
+    <div class="poly" aria-label="Gràfica de polígraf decorativa">
+      <div class="poly-labels">
+        <div><span>CARDIO</span><output id="bpm">72 bpm</output></div>
+        <div><span>PNEUMO</span><output id="resp">14 r/min</output></div>
+        <div><span>GSR</span><output id="gsr">2.1 µS</output></div>
+      </div>
+      <canvas id="trace"></canvas>
+    </div>
+  </header>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Les regles</span>
+      <h2>Quatre regles</h2>
+    </div>
+    <div class="rules">
+      <article class="rule r-truth">
+        <span class="tag">Regla 1</span>
+        <h3>El tutor no pot mentir</h3>
+        <p>Tot el que respongui ha de ser veritat. Sense excepcions.</p>
+      </article>
+      <article class="rule r-veto">
+        <span class="tag">Regla 2</span>
+        <h3>Un sol veto</h3>
+        <p>En tota la sessió, el tutor pot negar-se a respondre una única pregunta. Ha de triar bé quina.</p>
+      </article>
+      <article class="rule">
+        <span class="tag">Regla 3</span>
+        <h3>Preguntes anònimes</h3>
+        <p>Les escriviu en un paper sense nom. Ningú sap qui ha preguntat què.</p>
+      </article>
+      <article class="rule">
+        <span class="tag">Regla 4</span>
+        <h3>Pregunteu el que vulgueu</h3>
+        <p>No hi ha preguntes prohibides. Com respondre-les ja és cosa del tutor.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Exemples</span>
+      <h2>Idees per si us quedeu en blanc</h2>
+    </div>
+    <div class="examples">
+      <div class="ex-col warm">
+        <header><span class="dot"></span><h3>Per escalfar</h3></header>
+        <ul class="ex-list">
+          <li>Què volies ser quan tenies la nostra edat?</li>
+          <li>Quina cançó has escoltat més aquest any?</li>
+          <li>Què és el que menys t'agrada de ser profe?</li>
+          <li>Opinió sincera: el reggaeton és música?</li>
+          <li>Quin és el pitjor treball que has entregat mai?</li>
+          <li>Què canviaries de l'institut si en fossis director un dia?</li>
+        </ul>
+      </div>
+      <div class="ex-col hot">
+        <header><span class="dot"></span><h3>Atrevides</h3></header>
+        <p class="note">Aquí és on el tutor potser gasta el veto.</p>
+        <ul class="ex-list">
+          <li>T'has copiat mai en un examen?</li>
+          <li>Has fet mai campana?</li>
+          <li>Has suspès mai alguna assignatura?</li>
+          <li>Has mentit mai a un alumne?</li>
+          <li>Del 0 al 10, quina nota et posaries com a profe?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>Tutoria 3C · Curs 2026–27</footer>
+</div>
+
+<script>
+(function(){
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cv = document.getElementById('trace');
+  const ctx = cv.getContext('2d');
+  const bpmEl = document.getElementById('bpm'), respEl = document.getElementById('resp'), gsrEl = document.getElementById('gsr');
+  let W = 0, H = 0, t = 0, stress = 0;
+  const channels = [[], [], []];
+  function css(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+  function sample(i){
+    const s = stress;
+    if (i === 0){
+      const period = 38 - s * 16;
+      const ph = (t % period) / period;
+      const beat = ph < .06 ? Math.sin(ph / .06 * Math.PI) * (0.9 + s * .8) : (ph < .12 ? -Math.sin((ph-.06)/.06*Math.PI) * .3 : 0);
+      return beat + (Math.random()-.5) * .08;
+    }
+    if (i === 1) return Math.sin(t / (26 - s * 10)) * (.5 + s * .4) + (Math.random()-.5) * .04;
+    return (s * 1.6 - .4) + Math.sin(t / 90) * .15 + (Math.random()-.5) * (.06 + s * .3);
+  }
+  function resize(){
+    const dpr = window.devicePixelRatio || 1;
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    for (const c of channels){
+      while (c.length < W){ t++; c.unshift(sample(channels.indexOf(c))); }
+      if (c.length > W) c.splice(0, c.length - W);
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    const band = H / 3;
+    ctx.strokeStyle = css('--edge'); ctx.lineWidth = 1; ctx.setLineDash([3,4]);
+    for (let k=1;k<3;k++){ ctx.beginPath(); ctx.moveTo(0, band*k+.5); ctx.lineTo(W, band*k+.5); ctx.stroke(); }
+    ctx.setLineDash([]);
+    const colors = [css('--trace'), css('--ink'), css('--ink')];
+    channels.forEach((c, i) => {
+      const mid = band * i + band / 2, amp = band * .34;
+      ctx.beginPath(); ctx.lineWidth = i === 0 ? 1.8 : 1.3; ctx.strokeStyle = colors[i];
+      for (let x = 0; x < c.length; x++){ const y = mid - c[x] * amp; x ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+      ctx.stroke();
+      const last = c[c.length-1] || 0;
+      ctx.fillStyle = colors[i];
+      ctx.beginPath(); ctx.arc(W - 2, mid - last * amp, 3, 0, Math.PI*2); ctx.fill();
+    });
+  }
+  function step(n){
+    for (let k=0;k<n;k++){ t++; channels.forEach((c,i) => { c.push(sample(i)); if (c.length > W) c.shift(); }); }
+    stress *= .992;
+    if (Math.random() < .002) stress = Math.min(1, stress + .5);
+  }
+  let lastRead = 0;
+  function readouts(){
+    const now = performance.now();
+    if (now - lastRead < 400) return;
+    lastRead = now;
+    bpmEl.textContent = Math.round(72 + stress * 48 + (Math.random()-.5)*3) + ' bpm';
+    respEl.textContent = Math.round(14 + stress * 9) + ' r/min';
+    gsrEl.textContent = (2.1 + stress * 3.4 + (Math.random()-.5)*.1).toFixed(1) + ' µS';
+  }
+  function loop(){ step(2); draw(); readouts(); requestAnimationFrame(loop); }
+  window.addEventListener('resize', () => { resize(); draw(); });
+  resize(); draw();
+  if (!reduce) requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
