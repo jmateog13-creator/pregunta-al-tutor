@@ -97,6 +97,10 @@ h2{font-size:clamp(32px,4.4vw,48px);font-weight:800;letter-spacing:-.01em}
 .ex-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
 .ex-list li{background:var(--card);border:1px solid var(--edge);padding:10px 14px;font-size:17px}
 
+.warning{border-block:1.5px solid var(--ink);padding-block:48px;display:flex;flex-direction:column;gap:18px}
+.warning p{font-family:var(--display);font-weight:800;font-size:clamp(40px,7.2vw,92px);line-height:1;letter-spacing:-.03em;text-wrap:balance;max-width:16ch}
+.warning p .exact{display:block;color:var(--trace);margin-top:.18em}
+
 footer{font-family:var(--mono);font-size:13px;color:var(--muted);border-top:1px solid var(--edge);padding-top:16px}
 </style>
 </head>
@@ -144,6 +148,11 @@ footer{font-family:var(--mono);font-size:13px;color:var(--muted);border-top:1px 
         <p>No hi ha preguntes prohibides. Com respondre-les ja és cosa del tutor.</p>
       </article>
     </div>
+  </section>
+
+  <section class="warning">
+    <span class="eyebrow">Avís</span>
+    <p>Penseu bé el que pregunteu, perquè el tutor contestarà aquesta pregunta.<span class="exact">Ni més ni menys.</span></p>
   </section>
 
   <section>
